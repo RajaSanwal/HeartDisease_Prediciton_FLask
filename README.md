@@ -1,1 +1,1 @@
-# HeartDisease_Prediciton_FLask
+# Heart_Disease_Prediction
