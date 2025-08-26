@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'   # only runs when you push tags like v1.0.1
 
 jobs:
   docker:
@@ -30,9 +28,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t $IMAGE_NAME:${IMAGE_VERSION} .
-
-      - name: Tag Docker image as latest
-        run: docker tag $IMAGE_NAME:${IMAGE_VERSION}
 
       - name: Push Docker images
         run: |
