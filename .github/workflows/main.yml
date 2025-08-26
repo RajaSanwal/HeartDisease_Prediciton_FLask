@@ -3,13 +3,17 @@ name: Build & Push Docker Image
 on:
   push:
     branches:
-      - main          # run whenever code is pushed to main
+      - main
     tags:
-      - 'v*'   # runs only when you push tags like v0.0.1
+      - 'v*'   # only runs when you push tags like v1.0.1
 
 jobs:
   docker:
     runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: rajasanwal/heart-disease-flask
+      IMAGE_VERSION: v1.0.0
 
     steps:
       - name: Checkout code
@@ -24,15 +28,12 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Extract version from tag
-        run: |
-          echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
-          echo "Using VERSION=$VERSION"
+      - name: Build Docker image
+        run: docker build -t $IMAGE_NAME:${IMAGE_VERSION} .
 
-      - name: Build & Push Docker Image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ secrets.DOCKER_HUB_USERNAME }}/heart-disease-flask:${{ env.VERSION }}
+      - name: Tag Docker image as latest
+        run: docker tag $IMAGE_NAME:${IMAGE_VERSION}
+
+      - name: Push Docker images
+        run: |
+          docker push $IMAGE_NAME:${IMAGE_VERSION}
