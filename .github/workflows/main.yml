@@ -34,5 +34,5 @@ jobs:
           context: .
           push: true
           tags: |
-            heart-disease-flask:${{ env.VERSION }}
-            heart-disease-flask:latest
+            rajasanwal/heart-disease-flask:${{ env.VERSION }}
+            rajasanwal/heart-disease-flask:latest
