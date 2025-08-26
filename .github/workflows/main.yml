@@ -11,7 +11,7 @@ jobs:
 
     env:
       IMAGE_NAME: rajasanwal/heart-disease-flask
-      IMAGE_VERSION: v1.0.0
+      IMAGE_VERSION: v1.0.1
 
     steps:
       - name: Checkout code
