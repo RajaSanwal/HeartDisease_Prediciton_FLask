@@ -34,4 +34,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.VERSION }}
+            ${{ secrets.DOCKER_HUB_USERNAME }}/heart-disease-flask:${{ env.VERSION }}
